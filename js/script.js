@@ -1,4 +1,4 @@
-(function () {
+(() => {
   const fortune = document.querySelector('.fortune');
   const wheel = document.querySelector('.wheel-fortune__active');
   const startButton = document.querySelector('.fortune__button');
@@ -88,15 +88,18 @@
     });
   };
 
+  const endAnimation = () => {
+    wheel.style.transition = 'none';
+    const actualDeg = deg % 360;
+    wheel.style.transform = `rotate(${actualDeg}deg)`;
+  }
+
   startButton.addEventListener('click', () =>
     limit <= 2 ? spin() : startButton.setAttribute('disabled', 'disabled')
   );
 
   wheel.addEventListener('transitionend', () => {
-    wheel.style.transition = 'none';
-    const actualDeg = deg % 360;
-    wheel.style.transform = `rotate(${actualDeg}deg)`;
-
+    endAnimation()
     createSurprise(surprises);
   });
 })();
